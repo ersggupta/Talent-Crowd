@@ -1,0 +1,368 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+Este archivo es utilizado por el proceso de paquete/publicación de nuestro proyecto Web. Puede personalizar el comportamiento de este proceso
+editando este archivo MSBuild. Para conocer más acerca de esto, visite http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA8qEuwf2s20SpSVeiLGqMXgAAAAACAAAAAAAQZgAAAAEAACAAAACKECG8+QqfsM+wacth7uCLvuQ3xxZdv3rihMHINfM8swAAAAAOgAAAAAIAACAAAACL8NRYk/obPJTlZAhKUULd+M0kf76lJh2JqwalVec4ToAAAAAANV9/yqmjuWVNdqSz4OPAEtooaMq5JHM7Pz9C4t5W7dw4cqdsOlRCyd6oA/QpKMhrJyPX95AMfaNT4q4Q2kWYFoMs4IsKJS2CiLkJDhhTtzIh9gWIbPMScmAlWb59pJEsa6x+IEeLNn25Xq9RXc5sspzW/gWkYe9IGQbwMlioY0AAAACDsvlpQAuSSB4uAs9xAXnQoiUNDE9k+hElgwQQmwYCcd+iVUL6VKiZ7zDrzaKITzfJmrQYPPrm5tR50G6dD25v</EncryptedPassword>
+    <_PublishTargetUrl>C:\Users\Jorge\Desktop\Tcrowd1</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/Antlr3.Runtime.dll">
+      <publishTime>01/21/2015 18:32:03</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>01/21/2015 18:32:23</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>01/21/2015 18:32:24</publishTime>
+    </File>
+    <File Include="bin/es/EntityFramework.resources.dll">
+      <publishTime>01/21/2015 18:32:43</publishTime>
+    </File>
+    <File Include="bin/es/EntityFramework.SqlServer.resources.dll">
+      <publishTime>01/21/2015 18:32:43</publishTime>
+    </File>
+    <File Include="bin/es/Microsoft.AspNet.Identity.Core.resources.dll">
+      <publishTime>01/21/2015 18:32:44</publishTime>
+    </File>
+    <File Include="bin/es/Microsoft.AspNet.Identity.EntityFramework.resources.dll">
+      <publishTime>01/21/2015 18:32:46</publishTime>
+    </File>
+    <File Include="bin/es/Microsoft.AspNet.Identity.Owin.resources.dll">
+      <publishTime>01/21/2015 18:32:47</publishTime>
+    </File>
+    <File Include="bin/es/Microsoft.Owin.Host.SystemWeb.resources.dll">
+      <publishTime>01/21/2015 18:32:50</publishTime>
+    </File>
+    <File Include="bin/es/Microsoft.Owin.resources.dll">
+      <publishTime>01/21/2015 18:32:48</publishTime>
+    </File>
+    <File Include="bin/es/Microsoft.Owin.Security.Facebook.resources.dll">
+      <publishTime>01/21/2015 18:32:52</publishTime>
+    </File>
+    <File Include="bin/es/Microsoft.Owin.Security.Google.resources.dll">
+      <publishTime>01/21/2015 18:32:54</publishTime>
+    </File>
+    <File Include="bin/es/Microsoft.Owin.Security.MicrosoftAccount.resources.dll">
+      <publishTime>01/21/2015 18:32:56</publishTime>
+    </File>
+    <File Include="bin/es/Microsoft.Owin.Security.resources.dll">
+      <publishTime>01/21/2015 18:32:51</publishTime>
+    </File>
+    <File Include="bin/es/Microsoft.Owin.Security.Twitter.resources.dll">
+      <publishTime>01/21/2015 18:32:55</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.Helpers.resources.dll">
+      <publishTime>01/21/2015 18:32:13</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.Mvc.resources.dll">
+      <publishTime>01/21/2015 18:32:15</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.Optimization.resources.dll">
+      <publishTime>01/21/2015 18:32:16</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.Razor.resources.dll">
+      <publishTime>01/21/2015 18:32:11</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.WebPages.Deployment.resources.dll">
+      <publishTime>01/21/2015 18:32:13</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.WebPages.Razor.resources.dll">
+      <publishTime>01/21/2015 18:32:13</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.WebPages.resources.dll">
+      <publishTime>01/21/2015 18:32:13</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
+      <publishTime>01/21/2015 18:32:31</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.EntityFramework.dll">
+      <publishTime>01/21/2015 18:32:32</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.Owin.dll">
+      <publishTime>01/21/2015 18:32:32</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.dll">
+      <publishTime>01/21/2015 18:32:34</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Host.SystemWeb.dll">
+      <publishTime>01/21/2015 18:32:35</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Cookies.dll">
+      <publishTime>01/21/2015 18:32:37</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.dll">
+      <publishTime>01/21/2015 18:32:36</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Facebook.dll">
+      <publishTime>01/21/2015 18:32:36</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Google.dll">
+      <publishTime>01/21/2015 18:32:39</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.MicrosoftAccount.dll">
+      <publishTime>01/21/2015 18:32:41</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.OAuth.dll">
+      <publishTime>01/21/2015 18:32:38</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Twitter.dll">
+      <publishTime>01/21/2015 18:32:40</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>01/21/2015 18:31:58</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>01/21/2015 18:32:19</publishTime>
+    </File>
+    <File Include="bin/Owin.dll">
+      <publishTime>01/21/2015 18:32:33</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>01/21/2015 18:31:56</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>01/21/2015 18:32:00</publishTime>
+    </File>
+    <File Include="bin/System.Web.Optimization.dll">
+      <publishTime>01/21/2015 18:31:55</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>01/21/2015 18:31:53</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>01/21/2015 18:31:56</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>01/21/2015 18:31:56</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>01/21/2015 18:31:56</publishTime>
+    </File>
+    <File Include="bin/Talent-Crowd.dll">
+      <publishTime>02/14/2015 15:41:21</publishTime>
+    </File>
+    <File Include="bin/WebGrease.dll">
+      <publishTime>01/21/2015 18:32:05</publishTime>
+    </File>
+    <File Include="Content/bootstrap.css">
+      <publishTime>01/21/2015 18:31:38</publishTime>
+    </File>
+    <File Include="Content/bootstrap.min.css">
+      <publishTime>01/21/2015 18:31:38</publishTime>
+    </File>
+    <File Include="Content/DrillDown/dcdrilldown.css">
+      <publishTime>01/25/2015 00:38:27</publishTime>
+    </File>
+    <File Include="Content/DrillDown/skins/blue.css">
+      <publishTime>02/28/2011 19:58:44</publishTime>
+    </File>
+    <File Include="Content/DrillDown/skins/demo.css">
+      <publishTime>02/28/2011 20:29:38</publishTime>
+    </File>
+    <File Include="Content/DrillDown/skins/graphite.css">
+      <publishTime>02/28/2011 19:58:00</publishTime>
+    </File>
+    <File Include="Content/DrillDown/skins/grey.css">
+      <publishTime>02/28/2011 19:58:22</publishTime>
+    </File>
+    <File Include="Content/DrillDown/skins/images/arrow_black.png">
+      <publishTime>12/08/2010 14:18:38</publishTime>
+    </File>
+    <File Include="Content/DrillDown/skins/images/arrow_black_down.png">
+      <publishTime>02/12/2011 01:05:58</publishTime>
+    </File>
+    <File Include="Content/DrillDown/skins/images/arrow_black_right.png">
+      <publishTime>02/12/2011 01:05:32</publishTime>
+    </File>
+    <File Include="Content/DrillDown/skins/images/arrow_down_off.png">
+      <publishTime>02/27/2011 06:38:04</publishTime>
+    </File>
+    <File Include="Content/DrillDown/skins/images/arrow_grey_right.png">
+      <publishTime>02/12/2011 00:48:48</publishTime>
+    </File>
+    <File Include="Content/DrillDown/skins/images/arrow_red_left.png">
+      <publishTime>02/27/2011 21:20:30</publishTime>
+    </File>
+    <File Include="Content/DrillDown/skins/images/arrow_red_right.png">
+      <publishTime>02/11/2011 22:14:12</publishTime>
+    </File>
+    <File Include="Content/DrillDown/skins/images/arrow_right_off.png">
+      <publishTime>02/27/2011 05:39:08</publishTime>
+    </File>
+    <File Include="Content/DrillDown/skins/images/arrow_white_left.png">
+      <publishTime>02/28/2011 13:28:52</publishTime>
+    </File>
+    <File Include="Content/DrillDown/skins/images/arrow_white_right.png">
+      <publishTime>02/28/2011 13:28:32</publishTime>
+    </File>
+    <File Include="Content/DrillDown/skins/images/bg_black.png">
+      <publishTime>02/28/2011 13:52:26</publishTime>
+    </File>
+    <File Include="Content/DrillDown/skins/images/bg_black_on.png">
+      <publishTime>02/28/2011 14:03:48</publishTime>
+    </File>
+    <File Include="Content/DrillDown/skins/images/bg_clean.png">
+      <publishTime>01/12/2011 15:23:14</publishTime>
+    </File>
+    <File Include="Content/DrillDown/skins/images/bg_clean_on.png">
+      <publishTime>02/12/2011 01:30:56</publishTime>
+    </File>
+    <File Include="Content/DrillDown/skins/images/bg_green_blue.png">
+      <publishTime>02/11/2011 22:10:50</publishTime>
+    </File>
+    <File Include="Content/DrillDown/skins/images/bg_grey.png">
+      <publishTime>02/12/2011 00:20:48</publishTime>
+    </File>
+    <File Include="Content/DrillDown/skins/images/bg_grey_on.png">
+      <publishTime>02/28/2011 14:39:24</publishTime>
+    </File>
+    <File Include="Content/DrillDown/skins/images/bg_sub.png">
+      <publishTime>02/19/2011 19:16:56</publishTime>
+    </File>
+    <File Include="Content/DrillDown/skins/images/checkers.png">
+      <publishTime>02/11/2011 23:59:14</publishTime>
+    </File>
+    <File Include="Content/DrillDown/skins/images/icon_arrows.png">
+      <publishTime>02/27/2011 07:54:48</publishTime>
+    </File>
+    <File Include="Content/general.css">
+      <publishTime>02/14/2015 12:06:36</publishTime>
+    </File>
+    <File Include="Content/login.css">
+      <publishTime>02/11/2015 16:09:10</publishTime>
+    </File>
+    <File Include="Content/Site.css">
+      <publishTime>01/21/2015 18:31:16</publishTime>
+    </File>
+    <File Include="favicon.ico">
+      <publishTime>01/21/2015 18:31:16</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.eot">
+      <publishTime>01/21/2015 18:31:38</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.svg">
+      <publishTime>01/21/2015 18:31:38</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.ttf">
+      <publishTime>01/21/2015 18:31:38</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.woff">
+      <publishTime>01/21/2015 18:31:38</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>01/21/2015 18:31:16</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>01/21/2015 18:32:56</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap-datepicker.js">
+      <publishTime>01/31/2014 13:55:14</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.js">
+      <publishTime>05/17/2014 18:29:58</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.min.js">
+      <publishTime>08/19/2013 14:18:20</publishTime>
+    </File>
+    <File Include="Scripts/CrudOptions.js">
+      <publishTime>02/14/2015 15:30:18</publishTime>
+    </File>
+    <File Include="Scripts/date.js">
+      <publishTime>02/02/2015 20:09:17</publishTime>
+    </File>
+    <File Include="Scripts/DrillDown/jquery.cookie.js">
+      <publishTime>12/20/2010 04:22:02</publishTime>
+    </File>
+    <File Include="Scripts/DrillDown/jquery.dcdrilldown.1.2.js">
+      <publishTime>06/21/2011 06:42:30</publishTime>
+    </File>
+    <File Include="Scripts/DrillDown/jquery.dcdrilldown.1.2.min.js">
+      <publishTime>06/21/2011 06:53:34</publishTime>
+    </File>
+    <File Include="Scripts/HeartBeatScript.js">
+      <publishTime>09/11/2014 01:16:25</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.js">
+      <publishTime>01/21/2015 18:31:40</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.js">
+      <publishTime>01/21/2015 18:31:40</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.map">
+      <publishTime>01/21/2015 18:31:40</publishTime>
+    </File>
+    <File Include="Scripts/jquery.js">
+      <publishTime>05/13/2014 02:10:56</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.js">
+      <publishTime>01/21/2015 18:32:08</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.min.js">
+      <publishTime>01/21/2015 18:32:08</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.js">
+      <publishTime>01/21/2015 18:32:10</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.min.js">
+      <publishTime>01/21/2015 18:32:10</publishTime>
+    </File>
+    <File Include="Scripts/modernizr-2.6.2.js">
+      <publishTime>01/21/2015 18:32:02</publishTime>
+    </File>
+    <File Include="Scripts/respond.js">
+      <publishTime>01/21/2015 18:32:07</publishTime>
+    </File>
+    <File Include="Scripts/respond.min.js">
+      <publishTime>01/21/2015 18:32:07</publishTime>
+    </File>
+    <File Include="Scripts/_references.js">
+      <publishTime>01/21/2015 18:32:02</publishTime>
+    </File>
+    <File Include="Views/Home/About.cshtml">
+      <publishTime>01/21/2015 18:31:16</publishTime>
+    </File>
+    <File Include="Views/Home/Contact.cshtml">
+      <publishTime>01/21/2015 18:31:16</publishTime>
+    </File>
+    <File Include="Views/Home/Index.cshtml">
+      <publishTime>01/21/2015 18:31:16</publishTime>
+    </File>
+    <File Include="Views/Login/LoginUser.cshtml">
+      <publishTime>02/11/2015 16:30:47</publishTime>
+    </File>
+    <File Include="Views/Mask/Index.cshtml">
+      <publishTime>01/24/2015 22:32:47</publishTime>
+    </File>
+    <File Include="Views/Plugin/Index.cshtml">
+      <publishTime>02/02/2015 05:28:13</publishTime>
+    </File>
+    <File Include="Views/Polling/Form.cshtml">
+      <publishTime>02/14/2015 15:33:25</publishTime>
+    </File>
+    <File Include="Views/Shared/Error.cshtml">
+      <publishTime>01/21/2015 18:32:21</publishTime>
+    </File>
+    <File Include="Views/Shared/Lockout.cshtml">
+      <publishTime>01/21/2015 18:32:22</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout.cshtml">
+      <publishTime>02/14/2015 12:03:21</publishTime>
+    </File>
+    <File Include="Views/Shared/_LoginPartial.cshtml">
+      <publishTime>01/21/2015 18:32:22</publishTime>
+    </File>
+    <File Include="Views/Web.config">
+      <publishTime>02/13/2015 14:52:36</publishTime>
+    </File>
+    <File Include="Views/_ViewStart.cshtml">
+      <publishTime>01/21/2015 18:31:16</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>02/13/2015 14:52:35</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

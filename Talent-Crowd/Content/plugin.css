@@ -1,0 +1,44 @@
+﻿body { 
+    font-size:11px;
+    padding-top: 50px; 
+    padding-bottom: 50px; 
+}
+
+.container{
+    width:270px;
+    padding-left:10px;
+    padding-right:10px;
+}
+
+#taskselection {    
+    width:100%;
+    margin-top:15px;
+    margin-bottom:15px
+}
+
+#CandidateStep1{
+    width:100%;
+}
+
+#CandidateStep1 input{
+    width:100%;
+}
+
+#jobtitle {
+    font-weight:bold;
+}
+
+#steptitle{
+    color:#aed13f;
+}
+
+input[readonly="readonly"]
+{
+    border: none;
+    background: none;
+}
+
+.disab{
+    border: none;
+    background: none;
+}

@@ -1,0 +1,252 @@
+﻿@model Talent_Crowd.Models.Polling
+
+@section Title{Sourcing Proposals - "@ViewBag.Title"
+}
+
+@section Backlink{
+    <a href="">Back to list</a>
+}
+
+
+@{
+   
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-12">
+
+    @using (Html.BeginForm("Save", "PricingPlan", FormMethod.Post, new { @role = "form", @id = "myform", @name = "myform", @enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true)
+            <input type="hidden" name="Id" id="Id" value="@Model.JobRequestId" />
+            <input type="hidden" name="WorkerId" id="Id" value="@Model.WorkerId" />
+            <div class="form-group">
+                @Html.LabelFor(model => model.WorkerId, htmlAttributes: new { @class = "col-md-1 text-left" }):
+                <div class="col-md-6">
+                    <input type="text" class="disab" id="" value="@ViewBag.WorkerName" />
+                </div>
+            </div>
+
+            <div class="text-right">
+                <a href="#" onclick="addItem()">Add Item</a>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table" id="myTable">
+                    <thead>
+                    <th style="width:30%">Site Specific</th>
+                    <th style="width:10%">Type of Site</th>
+                    <th style="width:10%">Estimated Volume<br />of Profile</th>
+                    <th style="width:10%">Estimated Volume<br />of Profile by hour</th>
+                    <th style="width:10%">Free/Premium</th>
+                    <th style="width:20%">Why appropiate?</th>
+                    <th style="width:10%">&nbsp;</th>
+                    </thead>
+
+                    <tbody id="detail">
+                        @if (Model.PollingSite == null)
+                        {
+                            <tr id="detail-Norowsfound">
+                                <td>No records found</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var item in Model.PollingSite)
+                            {
+                                string rowID = Model.JobRequestId.ToString() + Model.WorkerId.ToString();
+                                string jrID = "detail_JobRequestId" + rowID;
+                                string wkID = "detail_WorkerId" + rowID;
+                                string siteID = "detail_SiteURL" + rowID;
+                                string siteTypeID = "detail_SiteTypeId" + rowID;
+                                string EVProfileID = "detail_EstimateVolProfiles" + rowID;
+                                string EVProfileHourID = "detail_EstimateVolProfilesHour" + rowID;
+                                string FreePremiumID = "detail_FreePremium" + rowID;
+                                string WAppropiateID = "detail_WAppropiate" + rowID;
+
+                                <tr id="@rowID">
+                                    <input type="hidden" id="@jrID" value="@Model.JobRequestId" />
+                                    <input type="hidden" id="@wkID" value="@Model.WorkerId" />
+                                    <td><input readonly id="@siteID" value="@item.SiteURL" /></td>
+                                    <td><input readonly id="@siteTypeID" value="@item.SiteTypeId"></td>
+                                    <td><input readonly id="@EVProfileID" value="@item.EstimateVolProfiles"></td>
+                                    <td><input readonly id="@EVProfileHourID" value="@item.EstimateVolProfilesHour"></td>
+                                    <td><input readonly id="@FreePremiumID" value="@item.FreeOrPremium"></td>
+                                    <td><input readonly id="@WAppropiateID" value="@item.WhyAppropiate"></td>
+                                    <td class="text-right"><a href="#" onclick="editItem(@rowID);">Edit</a> | <a href="#" onclick="deleteItem(@rowID);">Delete</a></td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-10">
+                    <input class="btn btn-primary" type="button" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+
+    var listaField = ["Item", "Polling_JobRequestId", "Polling_WorkerId", "SiteURL", "SiteTypeId", "EstimateVolProfiles", "EstimateVolProfilesHour", "FreeOrPremium", "WhyAppropiate"];
+    var listaType = ["hidden", "hidden", "hidden", "-", "-", "-", "-", "-", "-"];
+
+    function JobList(workerId) 
+    {
+        //alert(workerId);
+        //htmltext = ListofJobs(workerId);
+        //$("#JobRequestId").html(htmltext);
+        //alert(htmltext);
+    }
+
+    function deleteItem(t) {
+        var row = t.parentNode.parentNode;
+        document.getElementById("myTable").deleteRow(row.rowIndex);
+        console.log(row);
+    };
+
+    function editItem(rowid) {
+        $('#myModal').modal('show');
+        $('#myModal').find("input").val("");
+
+        $('#modal_rowid').val(rowid.toString());
+        MoveInfo(listaField, "DM", rowid.toString());
+    };
+
+    function addItem(){
+        $('#myModal').modal('show');
+        $('#myModal').find("input").val("");
+    }
+
+    function saveItem()
+    {
+        var rowid = 0;
+        var x = $('#modal_rowid').val();
+        var max = listaField.length;
+
+        if ($('#modal_rowid').val() == "")
+        {
+            $('#detail-Norowsfound').remove();
+
+            rowid = (Math.random() * -1);
+            det = document.getElementById('detail');
+            newline = NewLine(listaField, listaType, rowid);
+            $("#detail").append(newline);
+            MoveInfo(listaField, "MD", rowid.toString());
+            $('#myModal').find("input").val("");
+        }
+        else
+        {
+            rowid = $('#modal_rowid').val();
+            MoveInfo(listaField, "MD", rowid.toString());
+            $('#myModal').modal('hide');
+        }
+
+    }
+
+    function submit(){
+
+        ev.preventDefault(); // to stop the form from submitting
+        counter = 0;
+        var table = document.getElementById("detail");
+
+        for (var i = 0; i < table.rows.length; i++) {
+            s = "Detail[" + counter.toString() + "]";
+            row = table.rows[i];
+            rowid = row.getAttribute("id");
+            ChangeName(listaField, rowid);
+            counter = counter + 1;
+        }
+
+        /* Validations go here */
+        $.ajax({
+            url: "/Polling/Save/",
+            data: $("#myform").serializeArray(),
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                alert(data.responseText);
+            },
+            error: function (obj, textStatus, errorThrown) {
+                alert("error : " + errorThrown);
+            }
+        });
+        return false;
+    }
+
+</script>
+
+@if (Model.WorkerId > 0)
+{
+    @Html.Raw("<script>JobList(" + Model.WorkerId +");</script>")    
+}
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Add Detail</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <form class="form-horizontal">
+
+                            <input type="hidden" id="modal_rowid" />
+                            <input type="hidden" id="modal_Item" />
+                            <input type="hidden" id="modal_Polling_JobRequestId" />
+                            <input type="hidden" id="modal_Polling_WorkerId" />
+                            <div class="form-group">
+                                <label for="modal_SiteURL" class="col-sm-3 control-label">Site URL</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="modal_SiteURL" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="modal_SiteTypeId" class="col-sm-3 control-label">Site Type</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="modal_SiteTypeId" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="modal_EstimateVolProfiles" class="col-sm-3 control-label">Estimate Volume<br>Profiles</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="modal_EstimateVolProfiles" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="modal_EstimateVolProfilesHour" class="col-sm-3 control-label">Estimate Volume<br>Profiles Hour</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="modal_EstimateVolProfilesHour" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="modal_FreeOrPremium" class="col-sm-3 control-label">Free or Premium</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="modal_FreeOrPremium" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="modal_WhyAppropiate" class="col-sm-3 control-label">Why Appropiate</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="modal_WhyAppropiate" placeholder="">
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button id="addItemSave" type="button" onclick="saveItem()" class=" btn btn-primary">Accept</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->

@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" media="screen,print">
+    <link href="~/Content/general.css" rel="stylesheet" media="screen,print">
+    <link href="~/Content/bootstrap-datepicker.css" rel="stylesheet" media="screen,print">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker.js"></script>
+    <script src="~/Scripts/date.js"></script>
+    <script src="~/Scripts/CrudOptions.js"></script>
+</head>
+<body>
+
+    <!-- Header section -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                    <img id="logo" src="~/Images/talent-crowd-temp-logo.png" />"
+            </div>
+
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("Sign Out", "LogOut", "Login", new { errorMessage = "You have signed out" }, null)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Title -->
+    <div class="company-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8"><h2>@RenderSection("Title")</h2></div>
+                <div class="col-md-4">
+                    <h4 style="text-align:right;">
+                        @RenderSection("Backlink")
+                        <br /><br /><div id="LayoutLatestUpdate"></div>
+                    </h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <!-- Data Section -->
+    <div class="container">
+        <div class="row">
+            @RenderBody()
+        </div> <!-- Row -->
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,50 @@
+﻿body {
+    font-size:11px;
+}
+
+.container {
+    width:180px;
+    margin-top:180px;
+    padding-left:10px;
+    padding-right:10px;
+}
+
+input{
+    width:100%;
+}
+
+form img{
+    display:block;
+    margin:0 auto;
+    width: 100%;
+}
+
+#title {
+    font-size:14px;
+    font-weight:bold;
+    color:#515151;
+    margin-top:40px;
+}
+
+form button {
+    margin-top:10px;
+    color:#FFFFFF;
+    background-color:#aed13f ;
+}
+
+
+label {
+    display: block;
+    padding-left: 15px;
+    text-indent: -15px;
+}
+label input {
+    width: 13px;
+    height: 13px;
+    padding: 0;
+    margin:0;
+    vertical-align: bottom;
+    position: relative;
+    top: -1px;
+    *overflow: hidden;
+}

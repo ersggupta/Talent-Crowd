@@ -1,0 +1,226 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="robots" content="all" />
+    <title>jQuery Drill Down Menu Plugin v 1.2</title>
+    <link href="/Content/DrillDown/dcdrilldown.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/DrillDown/skins/graphite.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/DrillDown/skins/blue.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/DrillDown/skins/grey.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/DrillDown/skins/demo.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" src="/Scripts/DrillDown/jquery.cookie.js"></script>
+    <script type="text/javascript" src="/Scripts/DrillDown/jquery.dcdrilldown.1.2.min.js"></script>
+    <script type="text/javascript">
+/*
+$(document).ready(function($){
+    $('#drilldown-1').dcDrilldown({
+        speed: 'fast',
+        saveState: false,
+        showCount: false,
+        linkType: 'link',
+        defaultText		: 'Talent Crowd - Candidate Entry'
+    });
+});*/
+    </script>
+</head>
+<body>
+    @using (Html.BeginForm("Save", "Plugin", FormMethod.Post, new { @role = "form", @id = "formproduct", @name = "formproduct", @enctype = "multipart/form-data" }))
+    { 
+    <div class="wrap" style="margin:0;">
+        <div class="graphite demo-container">
+            <ul id="drilldown-1">
+                <li><a href="#">Basic Information</a>
+                    <ul>
+                        <li>
+                            <table style="padding-left:18%;padding-top:10%">
+                                <tr><td>Job Request</td></tr>
+                                <tr><td><select id="Job_Request" name="Job_Request" class="form-control"></select></td></tr>
+                                <tr><td>First Name</td></tr>
+                                <tr><td><input type="text" class="form-control" name="First_Name" id="First_Name" placeholder="First Name" /> </td></tr>
+                                <tr><td>Sur Name</td></tr><tr>
+                                <td><input type="text" class="form-control" name="Sur_Name" id="Sur_Name" placeholder="Sur Name" /></td></tr>
+                                <tr><td>Location</td></tr>
+                                <tr><td><input type="text" class="form-control" name="Location" id="Location" placeholder="Location" /></td></tr>
+                                <tr><td>Current Employeer</td></tr>
+                                <tr><td><input type="text" class="form-control" name="Current_Employeer" id="Current_Employeer" placeholder="Current Employeer" /></td></tr>
+                                <tr><td>Source Site</td></tr>
+                                <tr><td><input type="text" class="form-control" name="Source_Site" id="Source_Site" placeholder="Source Site" /></td></tr>
+                                <tr><td>Profile URL</td></tr>
+                                <tr><td><input type="text" class="form-control" name="Profile_URL" id="Profile_URL" placeholder="Profile URL" /></td></tr>
+                                <tr><td>DOB</td></tr>
+                                <tr><td><input type="text" class="form-control" name="DOB" id="DOB" placeholder="DOB" /></td></tr>
+                                <tr><td>Description of Current Work</td></tr>
+                                <tr><td><input type="text" class="form-control" name="Description_of_current_work" id="Description_of_current_work" placeholder="Description of current work" /></td></tr>
+                            </table>
+                        </li>
+                        <li style="display:none"></li>
+                        <li style="display:none"></li><li style="display:none"></li>
+                        <li style="display:none"></li>
+                        <li style="display:none"></li>
+                        <li style="display:none"></li>
+                        <li style="display:none"></li>
+                    </ul>                
+                </li>
+
+                <li>
+                    <a href="#">Primary Skills</a>
+                    <ul>
+                        <li>
+                            <div id="JobRequestSkillsP">
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#">Secondary Skills</a>
+                    <ul>
+                        <li>
+                            <div id="JobRequestSkillsS">
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Actions</a>
+                    <ul>
+                        <li>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Sign Out</a>
+                    <ul>
+                        <li>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="clear">
+                <input id="savebutton" type="submit" style="display:block;margin:0 auto" class="btn btn-primary btn-lg" value="Submit" />
+            </div>
+
+        </div>        
+    </div>
+    }
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#drilldown-1').dcDrilldown({
+                speed: 'fast',
+                saveState: false,
+                showCount: false,
+                linkType: 'link',
+                defaultText: 'Talent Crowd - Candidate Entry'
+            });
+
+           ListofJobs();
+
+            document.getElementById('Job_Request').addEventListener('change', function () {
+                jobId = $("#Job_Request").val();
+                ListofSkills(jobId, "P");
+                ListofSkills(jobId, "S");
+            });
+
+            document.getElementById('formproduct').addEventListener('submit', function (evt) {
+                evt.preventDefault();
+
+                // Candidate
+                $.ajax({
+                    type: 'POST', //|| 'get',
+                    url: '/Candidate/Save',
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        candidateId = data;
+                        // Clear the input tags
+                        formproduct.find("input[type='text']").each(function (i, element) {
+                            $(this).val('');
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        alert("error : " + error);
+                    }
+                });
+
+
+                // Skill
+                dataskill = "[";
+
+                $.each($("input[name='skillP']:checked"), function () {
+                    dataskill += '{"Candidate_Id": "' + candidateId.toString() + '", Type_Skill: "P", Description: "' + $(this).val() + '" }';
+                });
+
+                $.each($("input[name='skillS']:checked"), function () {
+                    dataskill += '{"Candidate_Id": "' + candidateId.toString() + '", Type_Skill: "S", Description: "' + $(this).val() + '" }';
+                });
+
+                dataskill += "]";
+
+                $.ajax({
+                    type: 'POST', //|| 'get',
+                    url: '/CandidatesSkill/Save',
+                    data: JSON.parse(dataskill),
+                    success: function (data) {
+                    },
+                    error: function (xhr, status, error) {
+                        alert("error : " + error);
+                    }
+                });
+
+                return false; //Cancel normal submission								           
+            });
+
+        });
+
+        function ListofJobs() {
+            $.ajax({
+                url: '/JobRequest/ListofJobs',
+                type: 'POST',
+                data: "",
+                success: function (data) {
+                    htmltext = '';
+                    for (var i = 0; i < data.length; i++) {
+                        htmltext += '<option value="' + data[i].Id + '">' + data[i].Client + ' - ' + data[i].Job_Title + '</option>';
+                    }
+                    $("#Job_Request").html(htmltext);
+                },
+                error: function (xhr, status, error) {
+                    alert("error : " + error);
+                }
+            });
+        }
+
+
+        function ListofSkills(job, type) {
+
+            datatoparse = '{"jobId": "' + job + '", "type":"' + type + '"}';
+
+            $.ajax({
+                url: '/JobRequestSkill/ListofSkills',
+                type: 'POST',
+                data: JSON.parse(datatoparse),
+                success: function (data) {
+                    htmltext = '';
+                    for (var i = 0; i < data.responseText.length; i++) {
+                        htmltext += '<div class="checkbox"><input name = "skill' + type.toUpperCase() + '" type="checkbox" value="' + data.responseText[i].Skill + ' ">' + data.responseText[i].Skill + '</div>'
+                    }
+                    $("#JobRequestSkills" + type.toUpperCase()).html(htmltext);
+
+                },
+                error: function (xhr, status, error) {
+                    alert("error : " + error);
+                }
+            });
+        }
+
+    </script>
+</body>
+</html>

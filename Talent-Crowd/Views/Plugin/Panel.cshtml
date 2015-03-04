@@ -1,0 +1,329 @@
+﻿@model Talent_Crowd.Models.Candidate
+@{
+    Layout = "~/Views/Shared/_Plugin.cshtml";
+    int WorkerId = Model.WorkerJobRequest_Worker_Id;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <select id="taskselection" onchange="selectedTask();"></select>
+    </div>
+</div>
+<hr style="margin:0">
+
+<div id="messageSave" class="alert alert-success alert-dismissible" style="display:none" role="alert">The Candidate was saved successfully</div>
+<div id="summaryError" class="alert alert-danger alert-dismissible" style="display:none" role="alert"></div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h6 id="jobtitle">Java developer</h6>
+    </div>
+</div>
+
+
+@using (Html.BeginForm("Save", "Panel", FormMethod.Post, new { @role = "form", @id = "myform", @name = "myform", @enctype = "multipart/form-data" }))
+{ 
+<div id="my-tab-content" class="tab-content">
+
+    <div id="Step1" class="tab-pane active">
+        <div class="row">
+            <div class="col-md-12">
+                <h6 id="steptitle">Step 1: Enter Candidate Profile</h6>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table id="CandidateStep1">
+                    <tr><td><input type="hidden" id="WorkerJobRequest_Worker_Id" name="WorkerJobRequest_Worker_Id" value="@WorkerId" /></td></tr>
+                    <tr><td><input type="hidden" id="WorkerJobRequest_JobRequest_Id" name="WorkerJobRequest_JobRequest_Id" value="-" /></td></tr>
+                    <tr><td>First Name(*)</td></tr>
+                    <tr><td><input type="text" name="First_Name" id="First_Name" />
+                        </td></tr>
+                    <tr><td>Surname(*)</td></tr>
+                    <tr><td><input type="text" name="Sur_Name" id="Sur_Name"  />
+                        </td></tr>
+                    <tr><td>Location(*)</td></tr>
+                    <tr><td><input type="text" name="Location" id="Location" />
+                        </td></tr>
+                    <tr><td>Employer</td></tr>
+                    <tr><td><input type="text" name="Current_Employeer" id="Current_Employeer" /></td></tr>
+                    <tr><td>Source Site(*)</td></tr>
+                    <tr><td><input type="text" name="Source_Site" id="Source_Site"/>
+                        </td></tr>
+                    <tr><td>Profile URL</td></tr>
+                    <tr><td><input type="text" name="Profile_URL" id="Profile_URL"/></td></tr>
+                    <!--<tr><td>DOB</td></tr>-->
+                    <!--<tr><td><input type="text" name="DOB" id="DOB" placeholder="DOB" /></td></tr>-->
+                    <tr><td>Description of Current Work</td></tr>
+                    <tr><td>
+                            <textarea name="Description_of_current_work" id="Description_of_current_work" style="width:100%;height:140px" ></textarea>
+                    <td></tr>
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <div id="Step2" class="tab-pane">
+        <div class="row">
+            <div class="col-md-12">
+                <h6 id="steptitle">Step 2: Tagging</h6>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table id="CandidateStep2-PrimarySkills" style="margin-top:10px; width:100%">
+                    <thead>
+                        <th style="width:60%">Primary Skill</th>
+                        <th style="width:35%">Expertise</th>
+                        <th style="width:5%">&nbsp;</th>
+                    </thead>
+                    <tbody id="PSBody">
+                    </tbody>
+                </table>
+                <div class="text-left"><a href="#" onclick="addItem('P')">Add item</a></div>
+
+                <table id="CandidateStep2-SecondarySkills" style="margin-top:10px; width:100%">
+                    <thead>
+                        <th style="width:60%">Secondary Skill</th>
+                        <th style="width:35%">Expertise</th>
+                        <th style="width:5%">&nbsp;</th>
+                    </thead>
+                    <tbody id="SSBody">
+                    </tbody>
+                </table>
+                <div class="text-left"><a href="#" onclick="addItem('S')">Add item</a></div>
+
+                <table id="CandidateStep2-CompanySkills" style="margin-top:10px; width:100%">
+                    <thead>
+                        <th style="width:60%">Company Skill</th>
+                        <th style="width:35%">Expertise</th>
+                        <th style="width:5%">&nbsp;</th>
+                    </thead>
+                    <tbody id="CSBody">
+                    </tbody>
+                </table>
+                <div class="text-left"><a href="#" onclick="addItem('C')">Add item</a></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+}
+<script>
+
+    window.onerror = function (errorMsg, url, lineNumber) {
+        alert('Javascript Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber);
+    }
+
+    var listaField = ["Type_Skill", "Description", "Experience"];
+    var listaType = ["hidden", "hidden", "hidden"];
+
+    function deleteItem(tipo, i) {
+        if (tipo == "P") 
+            document.getElementById("CandidateStep2-PrimarySkills").deleteRow(i);
+        else if (tipo == "S")
+            document.getElementById("CandidateStep2-SecondarySkills").deleteRow(i);
+        else if (tipo == "C")
+            document.getElementById("CandidateStep2-CompanySkills").deleteRow(i);
+    };
+
+    function addItem(tipo) {
+        var newline = "";
+        var comboname = "";
+
+        if (tipo == "P")
+            comboname = "pskillcombo";
+        else if (tipo == "S")
+            comboname = "sskillcombo";
+        else if (tipo == "C")
+            comboname = "cskillcombo";
+
+        var options = SkillsbyWorkerJob(tipo);
+        var optionsExp = '<option value="-">-Select-</option><option value="E">Expert</option><option value="A">Advanced</option><option value="I">Intermediate</option><option value="B">Beginner</option>'
+        newline += '<tr>';
+        newline += '<input type="hidden" id="detail_Type_Skill">';
+        newline += '<input type="hidden" id="detail_Description">';
+        newline += '<input type="hidden" id="detail_Experience"/>';
+        newline += '<td><select onchange="selectedSkill(this)" style="width:100%">' + options + '</select></td>';
+        newline += '<td><select onchange="selectedExperience(this)" style="width:100%">' + optionsExp+ '</select> </td>';
+        newline += '<td><a href="#" onclick="deleteItem(' + "'" + tipo + "'" + ', this.parentNode.parentNode.rowIndex)">-</a></td>';
+        newline += '</tr>';
+
+        if (tipo == "P")
+            $("#CandidateStep2-PrimarySkills").append(newline);
+        else if (tipo == "S")
+            $("#CandidateStep2-SecondarySkills").append(newline);
+        else if (tipo == "C")
+            $("#CandidateStep2-CompanySkills").append(newline);
+        
+    }
+
+    function footerChange(option) {
+
+        if (option == 1) {
+            s = '<div class="row"><div class="col-xs-6"><button class="btn btn-xs btn-info btn-block" onclick="simulaSave()">Save</button></div><div class="col-xs-6 text-right"><a data-toggle="tab" href="#Step2" style="color:#aed13f" onclick="footerChange(2)">Go to Step 2 >></a></div></div>';
+            document.getElementById("footerSection").innerHTML = s;
+        }
+        else if (option == 2) {
+            s = '<div class="row"><div class="col-xs-6 text-left"><a data-toggle="tab" href="#Step1" onclick="footerChange(1)" style="color:#aed13f"><< Back to Step 1</a></div><div class="col-xs-6"><button class="btn btn-xs btn-info btn-block" onclick="simulaSave()">Save</button></div></div>';
+            document.getElementById("footerSection").innerHTML = s;
+        }
+    }
+
+
+    function selectedExperience(e) {
+        var valor = e.options[e.selectedIndex].value;
+
+        var currow = $(e).closest('tr');
+        currow.find("input#detail_Experience").val(valor);
+    }
+
+    function selectedSkill(e) {
+        var valor = e.options[e.selectedIndex].value;
+        Type_Skill = valor.split(';')[0];
+        Description = valor.split(';')[1];
+
+        var currow = $(e).closest('tr');
+        currow.find("input#detail_Type_Skill").val(Type_Skill);
+        currow.find("input#detail_Description").val(Description);
+        
+    }
+
+    function selectedTask() {
+        $('#my-tab-content').find("input:not(#WorkerJobRequest_Worker_Id)").val("");
+
+        selectedItem = $('select[id=taskselection]').val();
+        titulo = selectedItem.split(';')[2];
+        jobId = selectedItem.split(';')[1];
+        
+        document.getElementById("WorkerJobRequest_JobRequest_Id").value = jobId;
+        $('#jobtitle').text(titulo);
+        
+
+        var table = document.getElementById("CandidateStep2-PrimarySkills");
+        while (table.rows.length > 1) {
+            table.deleteRow(1);
+        }
+
+        table = document.getElementById("CandidateStep2-SecondarySkills");
+        while (table.rows.length > 1) {
+            table.deleteRow(1);
+        }
+
+        table = document.getElementById("CandidateStep2-CompanySkills");
+        while (table.rows.length > 1) {
+            table.deleteRow(1);
+        }
+
+
+    }
+
+    function TasksbyWorkerJob() {
+        var workerID = $("#WorkerJobRequest_Worker_Id").val();
+
+        $.ajax({
+            url: "/Plugin/TaskCombo/",
+            data: JSON.parse('{"workerId" : ' + workerID + '}'),
+            cache: false,
+            type: "POST",
+            async: false,
+            success: function (data) {
+                ret = JSON.parse(data.responseText);
+                var s = "";
+                for (var i = 0; i < ret.length; i++) {
+                    s += '<option value="' + ret[i].Id.toString() + ';' + ret[i].JobId + ';' + ret[i].JobDes + '">' + ret[i].Des + '</option>';
+                }
+                $("#taskselection").html(s);
+            },
+            error: function (obj, textStatus, errorThrown) {
+                alert("error : " + errorThrown);
+            }
+        });
+    }
+
+
+
+    function SkillsbyWorkerJob(tipo) {
+        var JobRequestID = $("#WorkerJobRequest_JobRequest_Id").val();
+        var htmltext = "";
+
+        $.ajax({
+            url: "/Plugin/SkillCombo/",
+            data: JSON.parse('{"JobRequestId" : ' + JobRequestID + ', "tipo": "' + tipo + '"}'),
+            cache: false,
+            type: "POST",
+            async: false,
+            success: function (data) {
+                ret = JSON.parse(data.responseText);
+                htmltext = '<option value="-;-Select-">-Select-</option>';
+                for (var i = 0; i < ret.length; i++) {
+                    htmltext += '<option value="' + ret[i].Type_Skill + ';' + ret[i].Skill + '">' + ret[i].Skill + '</option>';
+                }                
+            },
+            error: function (obj, textStatus, errorThrown) {
+                alert("error : " + errorThrown);
+            }
+        });
+
+        return htmltext;
+    }
+
+    function simulaSave() {
+        $("#myform").submit();
+    }
+
+    $("#myform").submit(function (e) {
+        e.preventDefault();
+        saveForm();
+        return false;
+    });
+
+    function saveForm() {
+
+        
+        for (var i = 0; i < listaField.length; i++) {
+            counter = 0;
+
+            criterio = "input[id='detail_" + listaField[i] + "']";
+            $(criterio).each(function () {
+                $(this).attr("name","CandidateSkill[" + counter.toString() + "]" + '.' + listaField[i]);
+                counter = counter + 1;
+            });
+        }
+
+        data2 = $("#myform").serializeArray();
+
+        /* Validations go here */
+        $.ajax({
+            url: "/Plugin/Save/",
+            data: $("#myform").serializeArray(),
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                ret = data.responseText;
+                alert(ret);
+                if (ret != "") {
+                    $("#summaryError").html(ret);
+                    $("#summaryError").css("display", "block");
+                }
+                else {
+                    $("#messageSave").css("display", "block");
+                }
+
+            },
+            error: function (obj, textStatus, errorThrown) {
+                alert("error : " + errorThrown);
+            }
+        });
+
+        selectedTask();
+        return false;
+    }
+
+    $(document).ready(function () {
+        TasksbyWorkerJob();
+        selectedTask();
+        footerChange(1);
+    });
+
+</script>

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="talentcrowd" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Dropbox\\Software\\Software\ Talent-Crowd\\Talent-Crowd\\Talent-Crowd\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\Dropbox\\Software\\Software\ Talent-Crowd\\Talent-Crowd\\Talent-Crowd\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="talentcrowd_db-Web.config Connection String" description="" value="Data Source=tcp:dxf16xhpj9.database.windows.net,1433;Initial Catalog=talentcrowd_db;User Id=talent_crowd@dxf16xhpj9;Password=Inicio123" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Dropbox\\Software\\Software\ Talent-Crowd\\Talent-Crowd\\Talent-Crowd\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='talentcrowd_db']/@connectionString" />
+  </parameter>
+</parameters>

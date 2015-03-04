@@ -1,0 +1,24 @@
+﻿body {
+}
+
+.container {
+    width:300px;
+    margin-top:100px;
+}
+
+form img{
+    display:block;
+    margin:0 auto;
+    width: 100%;
+}
+
+form h4 {
+    color:#515151;
+    margin-top:50px;
+}
+
+form button {
+    margin-top:10px;
+    color:#FFFFFF;
+    background-color:#aed13f ;
+}

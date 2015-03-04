@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="talentcrowd_db-Web.config Connection String" description="talentcrowd_db Cadena de conexión que usa la aplicación en web.config para obtener acceso a la base de datos." defaultValue="Data Source=dxf16xhpj9.database.windows.net;Initial Catalog=talentcrowd_db;User Id=talent_crowd@dxf16xhpj9;Password=Inicio123;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Dropbox\\Software\\Software\ Talent-Crowd\\Talent-Crowd\\Talent-Crowd\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='talentcrowd_db']/@connectionString" />
+  </parameter>
+</parameters>

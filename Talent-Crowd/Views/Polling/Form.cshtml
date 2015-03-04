@@ -1,0 +1,388 @@
+﻿@model Talent_Crowd.Models.Polling
+
+@section Title{Sourcing Proposals - "@Model.WorkerJobRequest.JobRequest.Job_Title"<br />
+    <a href="@Model.WorkerJobRequest.JobRequest.Google_Doc_Specs" style="font-size:14px">View Job</a>
+}
+
+@section Backlink{
+&nbsp;
+}
+
+@section PageDescription{
+Here is some text explaining the form and what it needs to do. Please add this same box on top of all forms so there is context sensitive help.
+}
+
+
+@{
+   
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-12">
+
+
+    <div id="messageSave" class="alert alert-success alert-dismissible" style="display:none" role="alert">The form was saved successfully</div>
+
+    @using (Html.BeginForm("Save", "Polling", FormMethod.Post, new { @role = "form", @id = "myform", @name = "myform", @enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true)
+            <input type="hidden" name="JobRequest_Id" id="JobRequestId" value="@Model.JobRequest_Id" />
+            <input type="hidden" name="Worker_Id" id="WorkerId" value="@Model.Worker_Id" />
+            <div class="form-group">
+                @Html.LabelFor(model => model.Worker_Id, htmlAttributes: new { @class = "col-md-1 text-left" })
+                <div class="col-md-6">
+                    <input type="text" style="width:100%" class="disab" id="" value="@Model.WorkerJobRequest.Worker.First_Name @Model.WorkerJobRequest.Worker.Sur_Name" />
+                </div>
+            </div>
+
+            <div class="text-right">
+                <a href="#" onclick="addItem()">Add Item</a>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table" id="myTable">
+                    <thead>
+                    <th style="width:30%">Site Specific</th>
+                    <th style="width:10%">Type of Site</th>
+                    <th style="width:10%">Estimated Volume<br />of Profile</th>
+                    <th style="width:10%">Estimated Volume<br />of Profile by hour</th>
+                    <th style="width:10%">Free/Premium</th>
+                    <th style="width:20%">Why appropiate?</th>
+                    <th style="width:10%">&nbsp;</th>
+                    </thead>
+
+                    <tbody id="detail">
+                        @if (Model.PollingSite == null)
+                        {
+                            <tr id="detail-Norowsfound">
+                                <td>No records found</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var item in Model.PollingSite)
+                            {
+                                string rowID = item.Id.ToString();
+                                string IdID = "detail_Id" + rowID;
+                                string jrID = "detail_Polling_JobRequest_Id" + rowID;
+                                string wkID = "detail_Polling_Worker_Id" + rowID;
+                                string siteID = "detail_SiteURL" + rowID;
+                                string siteTypeID = "detail_SiteType_Id" + rowID;
+                                string siteTypeTextID = "detail_SiteTypeText" + rowID;                                
+                                string EVProfileID = "detail_EstimateVolProfiles" + rowID;
+                                string EVProfileHourID = "detail_EstimateVolProfilesHour" + rowID;
+                                string FreePremiumID = "detail_FreeOrPremium" + rowID;
+                                string FreePremiumTextID = "detail_FPtext" + rowID;
+                                string WAppropiateID = "detail_WhyAppropiate" + rowID;
+
+                                <tr id="@rowID">
+                                    <input type="hidden" id="@IdID" value="@item.Id" />
+                                    <input type="hidden" id="@jrID" value="@item.Polling_JobRequest_Id" />
+                                    <input type="hidden" id="@wkID" value="@item.Polling_Worker_Id" />
+                                    <input type="hidden" id="@siteTypeID" value="@item.SiteType_Id" />
+                                    <td><input style="width:100%" class="disab" readonly id="@siteID" value="@item.SiteURL" /></td>
+                                    <td><input style="width:100%" class="disab" readonly id="@siteTypeTextID" value="@item.SiteType.Description" /></td>
+                                    <td><input style="width:100%" class="disab" readonly id="@EVProfileID" value="@item.EstimateVolProfiles"></td>
+                                    <td><input style="width:100%" class="disab" readonly id="@EVProfileHourID" value="@item.EstimateVolProfilesHour"></td>
+                                    <input type="hidden" style="width:100%" class="disab" readonly id="@FreePremiumID" value="@item.FreeOrPremium">
+                                    <td>
+                                        <div id="@FreePremiumTextID">
+                                            @if (item.FreeOrPremium == "F") {<span>Free</span>}
+                                            @if (item.FreeOrPremium == "P") {<span>Premium</span>}
+                                        </div>
+                                    </td>
+                                    <td><input style="width:100%" class="disab" readonly id="@WAppropiateID" value="@item.WhyAppropiate"></td>
+                                    <td class="text-right"><a href="#" onclick="editItem(@rowID);">Edit</a> | <a href="#" onclick="deleteItem(@rowID);">Delete</a></td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-10">
+                    <input class="btn btn-primary" type="button" value="Save" onclick ="saveForm()" class="btn btn-default" />
+                </div>
+            </div>
+
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+
+    window.onerror = function (errorMsg, url, lineNumber) {
+        alert('Javascript Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber);
+    }
+
+    var listaField = ["Id", "Polling_JobRequest_Id", "Polling_Worker_Id", "SiteType_Id", "SiteURL", "SiteTypeText", "EstimateVolProfiles", "EstimateVolProfilesHour", "FreeOrPremium", "WhyAppropiate"];
+    var listaType = ["hidden", "hidden", "hidden", "hidden", "-", "-", "-", "-", "hidden", "-"];
+
+    function resetModal()
+    {
+        $('#myModal').find("input").val("");
+        $('#modal_FreeOrPremium').val("F");
+        $("#modal_optionFree").prop("checked", true);
+        SiteTypeCombo();
+    }
+
+    function SiteTypeCombo()
+    {        
+
+        $.ajax({
+            url: "/Polling/SiteTypeCombo/",
+            data: "",
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                ret = JSON.parse(data.responseText);
+                var htmltext = "";
+                htmltext = '<option value="-">-Select-</option>';
+                for (var i = 0; i < ret.length; i++) {
+                    htmltext += '<option value="' + ret[i].Id + '">' + ret[i].Description + '</option>';
+                }
+                $("#modal_SiteType_List").html(htmltext);
+            },
+            error: function (obj, textStatus, errorThrown) {
+                alert("error : " + errorThrown);
+
+            }
+        });
+
+    }
+
+    function selectedSiteType(e) {
+        var valor = e.options[e.selectedIndex].value;
+        var texto = e.options[e.selectedIndex].text;
+        $("#modal_SiteType_Id").val(valor);
+        $("#modal_SiteTypeText").val(texto);
+    }
+
+
+    function FPRadioChanged(x) {
+
+        var elements = document.getElementsByName("modal_FPtext");
+        var FPvalue = "";
+
+        for (var i = 0, len = elements.length; i < len; ++i) {
+            if (elements[i].checked) {
+                FPvalue = elements[i].id;
+                break;
+            }
+        }
+
+        // En modal
+        if (FPvalue == "modal_optionFree") {
+            document.getElementById('modal_FreeOrPremium').value = "F";
+        }
+        else if (FPvalue == 'modal_optionPremium') {
+            document.getElementById('modal_FreeOrPremium').value = "P";
+        }
+
+    }
+
+    function deleteItem(t) {
+        var row = t.parentNode.parentNode;
+        document.getElementById("myTable").deleteRow(row.rowIndex);
+        console.log(row);
+    };
+
+    function editItem(rowid) {
+        $('#myModal').modal('show');
+        $('#myModal').find("input").val("");
+
+        $('#modal_rowid').val(rowid.toString());
+        MoveInfo(listaField, "DM", rowid.toString());
+
+        // Check sobre el radio, en el Modal
+        if ($('#modal_FreeOrPremium').val() == "F") {
+            $("#modal_optionFree").prop("checked", true);
+        }
+        else if ($('#modal_FreeOrPremium').val() == "P") {
+            $("#modal_optionPremium").prop("checked", true);
+        }
+
+        // Site Type
+        var sel = document.getElementById('modal_SiteType_List');
+        var val = document.getElementById('modal_SiteType_Id').value;
+        
+        for (var i = 0, j = sel.options.length; i < j; ++i) {
+            if (sel.options[i].value === val) {
+                sel.selectedIndex = i;
+                break;
+            }
+        }
+    };
+
+    function addItem() {
+        resetModal();
+        $('#myModal').modal('show');
+    }
+
+
+
+    function NewLine2(listafield, listatype, rowid) {
+
+        var s = '<tr id="' + rowid.toString() + '">';
+        for (var i = 0; i < listafield.length; i++) {
+            if (listatype[i] == "hidden") {
+                s += '<input type="hidden" value="" id="detail_' + listafield[i] + rowid.toString() + '">';
+                if (listafield[i] == "FreeOrPremium") {
+                    s += '<td><div id="detail_FPtext' + rowid.toString() + '"></div></td>';
+                }
+            }
+            else {
+                s += '<td><input type="text" style="width:100%"  value="" class="disab" id="detail_' + listafield[i] + rowid.toString() + '"></td>';
+            }
+        }
+        s += '<td class="text-right"><a href="#" onclick="editItem(' + rowid.toString() + ');">Edit</a>&nbsp;&nbsp;<a href="#" onclick="deleteItem(this);">Delete</a></td>';
+        s += '</tr>';
+        return s;
+
+    }
+
+
+    function saveItem()
+    {
+        var rowid = 0;
+        var x = $('#modal_rowid').val();
+        var max = listaField.length;
+
+        if ($("#modal_rowid").val() == "")
+        {
+            $('#detail-Norowsfound').remove();
+
+            rowid = (Math.random() * -1);
+            det = document.getElementById('detail');
+            newline = NewLine2(listaField, listaType, rowid);
+            $("#detail").append(newline);
+            MoveInfo(listaField, "MD", rowid.toString());
+
+            // Pongo el texto en el Detail
+            var valorPF = document.getElementById("detail_FreeOrPremium" + rowid.toString()).value;
+            
+            if (valorPF == "F") { document.getElementById("detail_FPtext" + rowid.toString()).innerHTML = "<span>Free</span>" };
+            if (valorPF == "P") { document.getElementById("detail_FPtext" + rowid.toString()).innerHTML = "<span>Premium</span>" };
+            resetModal();
+        }
+        else
+        {
+            rowid = $('#modal_rowid').val();
+            MoveInfo(listaField, "MD", rowid.toString());
+            // Pongo el texto en el Detail
+            var valorPF = document.getElementById("detail_FreeOrPremium" + rowid.toString()).value;
+            
+            if (valorPF == "F") { document.getElementById("detail_FPtext" + rowid.toString()).innerHTML = "<span>Free</span>"};
+            if (valorPF == "P") { document.getElementById("detail_FPtext" + rowid.toString()).innerHTML = "<span>Premium</span>" };
+            resetModal();
+            $('#myModal').modal('hide');
+        }
+
+    }
+
+    function saveForm(){
+        counter = 0;
+        var table = document.getElementById("detail");
+
+        for (var i = 0; i < table.rows.length; i++) {
+            s = "PollingSite[" + counter.toString() + "]";
+            row = table.rows[i];
+            rowid = row.getAttribute("id");
+            ChangeName(listaField, rowid, s);
+            counter = counter + 1;
+        }
+
+        /* Validations go here */
+        $.ajax({
+            url: "/Polling/Save/",
+            data: $("#myform").serializeArray(),
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                $("#messageSave").css("display", "block");
+            },
+            error: function (obj, textStatus, errorThrown) {
+                alert("error : " + errorThrown);
+            }
+        });
+        return false;
+    }
+
+    $(document).ready(function () {
+        SiteTypeCombo();
+    });
+
+</script>
+
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Add Detail</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <form class="form-horizontal">
+                            <input type="hidden" id="modal_rowid" />
+                            <input type="hidden" id="modal_Id"/>
+                            <input type="hidden" id="modal_Polling_JobRequest_Id" />
+                            <input type="hidden" id="modal_Polling_Worker_Id" />
+                            <div class="form-group">
+                                <label for="modal_SiteURL" class="col-sm-3 control-label">Site URL</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="modal_SiteURL" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="modal_SiteType_Id" class="col-sm-3 control-label">Site Type</label>
+                                <div class="col-sm-8">
+                                    <input type="hidden" class="form-control" id="modal_SiteType_Id" placeholder="">
+                                    <input type="hidden" class="form-control" id="modal_SiteTypeText" placeholder="">
+                                    <select id="modal_SiteType_List" class="form-control" onchange ="selectedSiteType(this);">
+                                    </select>                                    
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="modal_EstimateVolProfiles" class="col-sm-3 control-label">Estimate Volume<br>Profiles</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="modal_EstimateVolProfiles" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="modal_EstimateVolProfilesHour" class="col-sm-3 control-label">Estimate Volume<br>Profiles Hour</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="modal_EstimateVolProfilesHour" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="modal_FreeOrPremium" class="col-sm-3 control-label">Free or Premium</label>                                
+                                <div class="col-sm-4">
+                                    <input type="radio" onchange="FPRadioChanged(this);" value="Free" name="modal_FPtext" id="modal_optionFree" checked> Free
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="radio" onchange="FPRadioChanged(this);" value="Premium" name="modal_FPtext" id="modal_optionPremium"> Premium
+                                    <input type="hidden" class="form-control" id="modal_FreeOrPremium">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="modal_WhyAppropiate" class="col-sm-3 control-label">Why Appropiate</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="modal_WhyAppropiate" placeholder="">
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button id="addItemSave" type="button" onclick="saveItem()" class=" btn btn-primary">Accept</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->

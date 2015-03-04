@@ -1,0 +1,62 @@
+﻿@model Talent_Crowd.Models.LoginModel
+@{
+    ViewBag.Title = "LoginUser";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" media="screen,print">
+    <link href="~/Content/loginPlugin.css" rel="stylesheet" media="screen,print">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+    <div class="container">
+
+        @using (Html.BeginForm("LoginPluginAuthentication", "Login", Model, FormMethod.Post))
+        {
+            <div class="form-signin">
+                <img src="~/Images/talent-crowd-temp-logo.png">
+
+                <h4 id="title" class="form-signin-heading text-center">Worker Login</h4>
+                <input type="hidden" id="requestURL" name="requestURL" value=@ViewBag.requestURL>
+                @Html.TextBoxFor(x => x.UserName, new { @name = "username", @placeholder = "Username", @autofocus = "autofocus" })
+                @Html.TextBoxFor(x => x.Password, new { @name = "password", @placeholder = "Password", @type = "password" })
+                @if (ViewBag.Error != null)
+                {
+                    <br />
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                        <strong>Warning!</strong> @ViewBag.Error
+                    </div>
+                }
+                 
+                <div>
+                    <label><input type="checkbox" id="RememberMe" name="RememberMe" checked /> Remember me</label>
+                </div>
+
+                <button id="SignIn" class="btn btn-xs btn-block btn-custom-primary" type="submit">Sign in</button>
+
+            </div>
+
+            <div class="text-center alert-danger">@ViewData["__LoginError__"]</div>
+        }
+    </div> <!-- /container -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>
+
