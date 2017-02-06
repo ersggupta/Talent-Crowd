@@ -28,6 +28,7 @@ namespace Talent_Crowd.Controllers
             {
                 db.SaveChanges();
             }
+
             catch (DbEntityValidationException ex)
             {
                 foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
